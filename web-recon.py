@@ -2,7 +2,6 @@ import subprocess
 import argparse
 import requests
 import re
-from bs4 import BeautifulSoup
 
 # crt.sh
 def fetch_crtsh_domains(target):
