@@ -1,1 +1,2 @@
 # WebRecon
+Ce script Python permet d’automatiser la reconnaissance web d’une ou plusieurs cibles. Il interroge crt.sh et web.archive.org pour extraire les domaines et sous-domaines associés à la cible, puis effectue un scan nmap avec des scripts HTTP ainsi qu’une analyse de vulnérabilités avec nuclei.
