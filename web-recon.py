@@ -4,7 +4,7 @@ import requests
 import re
 from bs4 import BeautifulSoup
 
-# Fonction pour interroger crt.sh
+# crt.sh
 def fetch_crtsh_domains(target):
     print(f"[INFO] Fetching certificate information from crt.sh for {target}...")
     url = f"https://crt.sh/?q={target}&output=json"
@@ -21,7 +21,7 @@ def fetch_crtsh_domains(target):
         print("[ERROR] Failed to fetch crt.sh data.")
         return []
 
-# Fonction pour récupérer des informations depuis web.archive.org
+# web.archive.org
 def fetch_web_archive_domains(target):
     print(f"[INFO] Fetching historical domains from web.archive.org for {target}...")
     url = f"https://web.archive.org/cdx/search/cdx?url={target}/*&output=json&collapse=urlkey"
@@ -39,21 +39,20 @@ def fetch_web_archive_domains(target):
         print("[ERROR] Failed to fetch data from web.archive.org.")
         return []
 
-# Fonction pour exécuter un scan Nmap sur chaque domaine
+# scan Nmap sur chaque domaine
 def run_nmap_http_scan(domains):
     for domain in domains:
         print(f"[INFO] Running Nmap HTTP scan on {domain}...")
         nmap_cmd = f"nmap --script http-enum {domain}"
         subprocess.run(nmap_cmd, shell=True)
 
-# Fonction pour exécuter Nuclei sur chaque domaine
+# Nuclei sur chaque domaine
 def run_nuclei_scan(domains, user_agent):
     for domain in domains:
         print(f"[INFO] Running Nuclei scan on {domain}...")
         nuclei_cmd = f"nuclei -u {domain} -H 'User-Agent: {user_agent}'"
         subprocess.run(nuclei_cmd, shell=True)
 
-# Fonction principale
 def main():
     parser = argparse.ArgumentParser(description="Automated Web Reconnaissance Tool")
     parser.add_argument("targets", nargs='+', help="Target domains or IPs")
@@ -62,7 +61,7 @@ def main():
 
     all_domains = set()
 
-    # Fetch domains and subdomains from crt.sh and web.archive.org
+    # Fetch domains and subdomains
     for target in args.targets:
         crtsh_domains = fetch_crtsh_domains(target)
         archive_domains = fetch_web_archive_domains(target)
